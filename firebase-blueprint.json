@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Stores user account profile, settings, and learning preferences",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 120 },
+        "photoURL": { "type": "string", "maxLength": 1024 },
+        "bio": { "type": "string", "maxLength": 1000 },
+        "targetRole": { "type": "string", "maxLength": 160 },
+        "weeklyGoalHours": { "type": "number" },
+        "dailyStudyMinutes": { "type": "number" },
+        "timezone": { "type": "string", "maxLength": 64 },
+        "onboardingCompleted": { "type": "boolean" },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "displayName", "role", "createdAt", "updatedAt"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "User learning goals and curriculum configurations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "goal_type": { "type": "string", "maxLength": 64 },
+        "current_level": { "type": "string", "maxLength": 64 },
+        "status": { "type": "string", "enum": ["active", "paused", "completed", "archived"] },
+        "daily_minutes": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "status", "daily_minutes", "created_at", "updated_at"]
+    },
+    "SessionDurationMetric": {
+      "title": "SessionDurationMetric",
+      "description": "Tracks lesson reading time and session_duration metrics when a user studies, navigates away, or closes a lesson",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "goal_id": { "type": "string", "maxLength": 128 },
+        "item_id": { "type": "string", "maxLength": 128 },
+        "topic_id": { "type": "string", "maxLength": 128 },
+        "topic_title": { "type": "string", "maxLength": 256 },
+        "metric_name": { "type": "string", "enum": ["session_duration"] },
+        "session_duration": { "type": "number", "description": "Elapsed time in seconds spent on the lesson session" },
+        "duration_seconds": { "type": "number", "description": "Duration in seconds for backward compatibility" },
+        "exit_reason": { "type": "string", "enum": ["navigate_away", "window_close", "completed", "manual_log"] },
+        "started_at": { "type": "string", "format": "date-time" },
+        "ended_at": { "type": "string", "format": "date-time" },
+        "logged_at": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "user_id",
+        "goal_id",
+        "topic_id",
+        "metric_name",
+        "session_duration",
+        "started_at",
+        "ended_at",
+        "logged_at"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores user profile and preferences"
+    },
+    "/users/{userId}/goals/{goalId}": {
+      "schema": { "$ref": "#/entities/Goal" },
+      "description": "Stores learning goals for a specific user"
+    },
+    "/users/{userId}/progress/{progressId}": {
+      "schema": { "$ref": "#/entities/SessionDurationMetric" },
+      "description": "Stores lesson session_duration metrics and reading progress logs"
+    }
+  }
+}

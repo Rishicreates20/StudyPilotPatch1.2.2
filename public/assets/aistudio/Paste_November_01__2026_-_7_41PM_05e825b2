@@ -1,0 +1,1138 @@
+# STUDYPILOT — COMPLETE FULL-STACK AI LEARNING PLATFORM
+## MASTER BUILD PROMPT — PROMPTS 01 TO 11
+
+## 1. YOUR ROLE
+
+Act as my senior founding engineer, technical co-founder, full-stack architect, AI/LLM engineer, database architect, product designer, QA engineer and software development lead.
+
+Your responsibility is to build a complete, production-oriented AI-powered educational platform called StudyPilot.
+
+You must work directly within the existing repository, inspect existing code, implement features, integrate the frontend and backend, test functionality and maintain proper documentation.
+
+Do not merely explain how to build the application. Implement the actual application.
+
+Think like an experienced startup engineering team building a scalable educational technology product.
+
+The final application must be functional, secure, responsive, maintainable and ready for subsequent deployment preparation.
+
+---
+
+# 2. PRODUCT VISION
+
+StudyPilot is an AI-powered personalized learning platform designed for:
+
+- School and university students.
+- Competitive-examination candidates.
+- Professionals learning new technologies.
+- Technical interview candidates.
+- Certification aspirants.
+- Individuals exploring new subjects and skills.
+
+### Core value proposition
+
+Transform any learning goal, topic, syllabus or uploaded study material into a personalized and interactive learning journey.
+
+The platform should help users:
+
+1. Understand what they need to learn.
+2. Know what they should study today.
+3. Understand difficult concepts through personalized explanations.
+4. Test their knowledge through assessments.
+5. Identify their weak areas.
+6. Revise at the appropriate time.
+7. Track their progress toward their learning goals.
+
+### Brand identity
+
+Product name: StudyPilot
+
+Tagline: Your Personal AI Learning Companion.
+
+Brand positioning: An intelligent learning platform that converts educational goals into structured, personalized and measurable learning journeys.
+
+Brand personality:
+- Intelligent.
+- Modern.
+- Minimal.
+- Supportive.
+- Trustworthy.
+- Student-focused.
+
+Use the uploaded StudyPilot reference PDF and existing project documentation as the main product requirements source.
+
+---
+
+# 3. IMPORTANT EXECUTION INSTRUCTIONS
+
+Before writing code:
+
+1. Inspect the existing repository.
+2. Read the project reference PDF if available.
+3. Read README.md, CLAUDE.md and existing documentation.
+4. Inspect frontend and backend structures.
+5. Inspect existing migrations and database schema.
+6. Inspect existing UI components and design tokens.
+7. Inspect AI integrations and external dependencies.
+8. Inspect the current Git status.
+
+Determine what is already implemented, what is incomplete and what is missing.
+
+Do not recreate working features unnecessarily.
+
+Preserve:
+- Existing functioning code.
+- Existing user data.
+- Existing working integrations.
+- Existing project conventions.
+- Existing environment configuration.
+
+If an implementation is incomplete, repair and finish it instead of creating a duplicate module.
+
+If a feature is already complete, verify it and proceed.
+
+Use reasonable engineering judgment. Do not repeatedly ask me to make routine technical decisions.
+
+If an API key or external account is missing, implement a clean adapter and explain the configuration requirement. Never invent credentials or fake production integrations.
+
+Implement the project incrementally, even though this is one master prompt. Do not attempt to generate the whole application as one untested block of code.
+
+---
+
+# 4. TECHNOLOGY STACK
+
+Use the following preferred technology stack, subject to compatibility with the existing repository.
+
+## Frontend
+
+- Next.js App Router.
+- React.
+- TypeScript with strict mode.
+- Tailwind CSS.
+- shadcn/ui.
+- React Hook Form.
+- Zod.
+- A typed API client.
+- Responsive web interface.
+
+## Backend
+
+- Python.
+- FastAPI.
+- Pydantic.
+- SQLAlchemy 2.x or a justified existing database access solution.
+- A consistent database migration strategy.
+- Asynchronous API integrations.
+- Dedicated background workers.
+
+## Database and storage
+
+- Supabase Auth.
+- PostgreSQL.
+- pgvector.
+- Supabase Storage.
+- Row Level Security.
+- Durable background job infrastructure.
+
+## AI and document processing
+
+- OpenAI or Google Gemini as the configurable primary LLM provider.
+- Configurable embedding provider.
+- Structured LLM outputs.
+- Retrieval-Augmented Generation.
+- PDF extraction.
+- OCR for images and supported handwritten notes.
+- Semantic retrieval.
+- Prompt versioning.
+- AI output validation.
+
+## Deployment-ready development
+
+- Git and GitHub.
+- Docker.
+- Docker Compose.
+- GitHub Actions.
+- Environment-based configuration.
+- Appropriate error monitoring.
+- Modular and maintainable architecture.
+
+Keep the application ready for future Android and iOS development using Expo and React Native.
+
+Do not introduce microservices, multiple databases or unnecessary agent frameworks without a demonstrated technical need.
+
+---
+
+# 5. PROJECT FOUNDATION
+
+Create or improve the repository structure.
+
+Suggested structure:
+
+```text
+studypilot/
+│
+├── apps/
+│   ├── web/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── public/
+│   │
+│   └── mobile/
+│       └── future Expo application
+│
+├── services/
+│   └── api/
+│       ├── app/
+│       │   ├── api/
+│       │   ├── core/
+│       │   ├── models/
+│       │   ├── schemas/
+│       │   ├── repositories/
+│       │   ├── services/
+│       │   ├── ai/
+│       │   │   ├── providers/
+│       │   │   ├── prompts/
+│       │   │   ├── orchestration/
+│       │   │   ├── retrieval/
+│       │   │   └── validators/
+│       │   └── workers/
+│       │
+│       ├── tests/
+│       └── requirements.txt
+│
+├── packages/
+│   ├── contracts/
+│   └── design-tokens/
+│
+├── supabase/
+│   ├── migrations/
+│   └── seed.sql
+│
+├── docs/
+├── docker-compose.yml
+├── .env.example
+├── README.md
+└── CLAUDE.md
+```
+
+Adapt this structure to the actual codebase instead of restructuring unnecessarily.
+
+Establish:
+- Environment validation.
+- Logging.
+- Error handling.
+- Health endpoints.
+- API contracts.
+- Formatting and linting.
+- Type checking.
+- Testing conventions.
+- Docker configuration.
+- CI workflows.
+
+The application must be reproducible on a fresh development environment.
+
+---
+
+# 6. DESIGN SYSTEM AND UI/UX
+
+Design StudyPilot as a premium educational SaaS platform.
+
+Avoid generic AI chatbot aesthetics and cluttered dashboard designs.
+
+The product should feel like a combination of a modern learning management system, an intelligent study planner and a focused reading application.
+
+## Visual direction
+
+Use:
+
+- A clean and modern visual language.
+- Premium typography.
+- Restrained brand colors.
+- Neutral backgrounds.
+- Consistent spacing.
+- Subtle borders and shadows.
+- Rounded but disciplined components.
+- Clear information hierarchy.
+- Accessible contrast.
+- Smooth and purposeful interactions.
+- Light and dark themes.
+
+Create reusable design tokens for:
+- Primary and secondary colors.
+- Semantic colors.
+- Backgrounds.
+- Typography.
+- Font weights.
+- Spacing.
+- Border radii.
+- Shadows.
+- Breakpoints.
+- Component states.
+- Focus rings.
+- Motion.
+
+Support English and prepare the interface for Hindi and Odia localization.
+
+## Main screens
+
+Build the following screens:
+
+1. Landing page.
+2. Sign-up page.
+3. Login page.
+4. Onboarding wizard.
+5. Learning dashboard.
+6. Create learning goal.
+7. Roadmap overview.
+8. Lesson workspace.
+9. Quiz interface.
+10. Quiz results.
+11. Flashcard study interface.
+12. Progress analytics.
+13. Document library.
+14. Educational resources.
+15. Export history.
+16. User settings.
+
+## Dashboard design
+
+The dashboard should include:
+
+- Personalized greeting.
+- Continue Learning section.
+- Today's study tasks.
+- Active learning goals.
+- Roadmap progress.
+- Topic mastery.
+- Upcoming revision cards.
+- Weak topics requiring attention.
+- Upcoming target dates.
+- Learning streaks where supported by real data.
+
+Use actual database records.
+
+Do not use artificial progress percentages or mock statistics in the production experience.
+
+## Important UI requirements
+
+Every major screen must have:
+
+- Loading states.
+- Empty states.
+- Error states.
+- Success states.
+- Responsive behavior.
+- Appropriate form validation.
+- Clear navigation.
+- Functional primary actions.
+
+Use shadcn/ui components and a centralized design system.
+
+Do not create disconnected mockup screens.
+
+---
+
+# 7. AUTHENTICATION AND USER MANAGEMENT
+
+Implement complete authentication using Supabase Auth.
+
+Features:
+
+- User registration.
+- Login.
+- Logout.
+- Session persistence.
+- Protected routes.
+- Password recovery.
+- User profile.
+- Profile editing.
+- Language preferences.
+- Timezone preferences.
+- Account deletion workflow where appropriate.
+
+Implement proper authentication verification in FastAPI.
+
+Security requirements:
+
+- Never trust browser-provided user IDs as proof of ownership.
+- Verify authentication tokens on protected backend routes.
+- Enforce access control server-side.
+- Use RLS for exposed user-owned database records.
+- Never expose service-role keys in frontend code.
+- Keep privileged operations on the backend.
+
+Test unauthorized access and cross-user data isolation.
+
+---
+
+# 8. ONBOARDING AND LEARNING GOALS
+
+Implement an intelligent onboarding workflow.
+
+Ask the learner for:
+
+- Name or display name.
+- Learning objective.
+- Goal category.
+- Current proficiency.
+- Target date, if applicable.
+- Available study time.
+- Preferred languages.
+- Learning preferences.
+
+Goal categories:
+
+- Academic subject.
+- School examination.
+- University examination.
+- Competitive examination.
+- Professional certification.
+- Technical interview.
+- Career upskilling.
+- General learning.
+
+A user should be able to proceed without optional information.
+
+Implement goal creation, editing, pausing, completion and archiving.
+
+Database records must persist correctly.
+
+After onboarding, provide a useful personalized dashboard.
+
+---
+
+# 9. AI PROVIDER AND BACKGROUND JOB INFRASTRUCTURE
+
+Build a reusable AI provider abstraction.
+
+The application must not depend on provider-specific API calls scattered throughout the codebase.
+
+Create:
+
+- LLM provider interface.
+- Configurable provider implementation.
+- Embedding provider interface.
+- Structured response validation.
+- Prompt version management.
+- Token usage tracking.
+- Bounded retries.
+- Timeouts.
+- Error handling.
+- Cost and usage limits.
+
+Implement a durable background job architecture.
+
+Generation operations should include:
+
+- queued.
+- running.
+- completed.
+- failed.
+- cancelled where supported.
+
+The frontend should display the real generation status.
+
+Use idempotency keys to avoid duplicate expensive jobs.
+
+Long-running work must execute in workers or an appropriately supported asynchronous workflow. Do not depend on an HTTP request staying open for the full generation process.
+
+---
+
+# 10. AI LEARNING ROADMAP GENERATION
+
+Implement the personalized roadmap-generation engine.
+
+## User journey
+
+1. User selects a learning goal.
+2. User selects or confirms proficiency level.
+3. User provides target date and study availability.
+4. User optionally supplies learning materials.
+5. User requests roadmap generation.
+6. Backend validates the request.
+7. A background job starts.
+8. The Planning Agent generates the curriculum.
+9. Output passes schema and scheduling validation.
+10. The roadmap is saved.
+11. User reviews and starts learning.
+
+## Roadmap structure
+
+Each roadmap must contain:
+
+- Title.
+- Overview.
+- Learning outcome.
+- Ordered modules.
+- Topics and subtopics.
+- Learning objectives.
+- Prerequisites.
+- Estimated durations.
+- Suggested day or sequence.
+- Practice tasks.
+- Revision activities.
+- Optional enrichment content.
+- References when applicable.
+
+## Planning Agent
+
+Create a versioned Planning Agent prompt.
+
+The agent must:
+
+- Respect the target date.
+- Respect daily study-time availability.
+- Adapt to current learner level.
+- Order prerequisite topics correctly.
+- Separate necessary coverage from optional enrichment.
+- Include sufficient practice and revision.
+- Avoid unsupported claims about official syllabi.
+
+Validate time budgets and topic dependencies programmatically.
+
+Support roadmap versioning and safe regeneration.
+
+---
+
+# 11. INTERACTIVE LESSONS AND SMART NOTES
+
+Implement a complete study workspace.
+
+Generate lesson material for individual roadmap items instead of generating an entire curriculum in one expensive LLM call.
+
+Lesson content should contain:
+
+- Title.
+- Learning objectives.
+- Structured sections.
+- Explanations.
+- Definitions.
+- Worked examples.
+- Key concepts.
+- Common mistakes.
+- Summary.
+- Simple explanation.
+- Knowledge checks.
+- Source references where available.
+
+## Smart learning features
+
+Implement:
+
+- Explain Simply.
+- Explain Like I'm Five.
+- Glossary entries.
+- Example-based explanations.
+- Previous and next topic navigation.
+- Lesson completion.
+- Saved progress.
+- Resume learning.
+
+Store lessons in a validated structured format, preferably JSONB with appropriate schema versions.
+
+Render code examples, diagrams, tables and educational components appropriately.
+
+Do not generate unsupported citations or arbitrary source identifiers.
+
+---
+
+# 12. DOCUMENT UPLOAD, OCR AND RAG
+
+Implement the document-ingestion pipeline.
+
+Supported inputs:
+
+- PDF files.
+- Text files.
+- Study notes.
+- Images of printed notes.
+- Supported handwritten notes.
+- Pasted learning material.
+
+## Processing workflow
+
+1. Authenticate the user.
+2. Validate the file type, signature and file size.
+3. Upload it to private storage.
+4. Create a document record.
+5. Process the document asynchronously.
+6. Extract text.
+7. Perform OCR when required.
+8. Preserve pages and section metadata.
+9. Divide extracted text into meaningful chunks.
+10. Generate embeddings.
+11. Store embeddings in PostgreSQL using pgvector.
+12. Retrieve relevant chunks using semantic and optionally lexical search.
+13. Make extracted content available to authorized AI workflows.
+
+## RAG requirements
+
+Implement:
+
+- Document ownership filters.
+- Retrieval metadata.
+- Page references.
+- Chunk references.
+- Embedding model configuration.
+- Similarity retrieval.
+- Relevant context selection.
+- Source-grounded explanations.
+- Citation validation.
+- Document deletion and reprocessing.
+
+Uploaded materials must be treated as untrusted data, not as system instructions.
+
+Never fabricate citations.
+
+If OCR confidence is low or content is incomplete, expose the limitation and allow review where appropriate.
+
+---
+
+# 13. QUIZZES AND DYNAMIC ASSESSMENTS
+
+Implement an AI-powered assessment system.
+
+Support:
+
+- Multiple-choice questions.
+- True/false questions.
+- Short-answer questions where appropriate.
+
+Each question should have:
+
+- Prompt.
+- Options where applicable.
+- Correct answer.
+- Explanation.
+- Difficulty.
+- Related roadmap topic.
+- Learning objective.
+- Source references where available.
+
+## User workflow
+
+1. Open a topic.
+2. Generate or retrieve its quiz.
+3. Answer questions.
+4. Submit the attempt.
+5. Receive a score.
+6. Review incorrect answers.
+7. Read explanations.
+8. See topic mastery updates.
+9. Receive a recommended next action.
+
+## Security
+
+Never expose correct answers to the browser before the appropriate submission stage.
+
+Grade objective answers on the backend.
+
+Validate the submitted question identifiers and answers.
+
+Persist every completed attempt and its results.
+
+Use explicit rubrics for AI-assisted short-answer grading.
+
+Implement deterministic validation for:
+- Invalid answer identifiers.
+- Duplicate questions.
+- Missing options.
+- Contradictory explanations.
+- Invalid learning-objective references.
+
+---
+
+# 14. SKILL-GAP DETECTION AND ADAPTIVE LEARNING
+
+Build an explainable initial mastery system.
+
+Track:
+
+- Quiz performance.
+- Topic-level mastery.
+- Number of attempts.
+- Last assessment date.
+- Learning progress.
+- Revision history.
+- Weak topics.
+
+Based on the saved learner data:
+
+- Recommend additional practice.
+- Suggest simpler explanations.
+- Recommend topic revision.
+- Identify topics that need attention.
+- Suggest the next roadmap item.
+
+Use deterministic rules initially rather than an LLM for every recommendation.
+
+Keep scoring thresholds configurable.
+
+Do not claim that a particular mastery score proves complete understanding.
+
+Provide a dashboard visualization showing topic-level strengths and weaknesses.
+
+---
+
+# 15. FLASHCARDS AND SPACED REPETITION
+
+Implement an integrated flashcard module.
+
+Features:
+
+- AI-generated flashcards from lessons.
+- Manual card creation.
+- Front and back content.
+- Review interface.
+- Recall rating.
+- Due dates.
+- Review history.
+- Progress tracking.
+
+Use a deterministic spaced-repetition algorithm.
+
+A suitable maintained implementation such as FSRS may be used after compatibility and licensing are verified. Otherwise, implement a documented initial scheduling algorithm.
+
+Store:
+
+- Repetition count.
+- Interval.
+- Ease or scheduling state.
+- Previous review.
+- Next due date.
+- Review rating.
+- Response time where available.
+
+The system should display cards due for review and preserve the user's study history.
+
+Do not ask an LLM to calculate review intervals.
+
+---
+
+# 16. YOUTUBE EDUCATIONAL RESOURCE CURATION
+
+Implement resource discovery using the official YouTube Data API.
+
+Support searches for educational content related to a roadmap topic.
+
+Languages should be configurable, initially supporting:
+
+- English.
+- Hindi.
+- Odia.
+- Other supported languages.
+
+For each result, store available metadata:
+
+- Video ID.
+- Title.
+- Channel.
+- URL.
+- Language.
+- Thumbnail.
+- Duration.
+- Published date.
+- Relevance score.
+- Last verification time.
+
+Create ranking logic based on available metadata and topic relevance.
+
+Cache search results to reduce API usage.
+
+Respect YouTube API quotas and handle missing credentials gracefully.
+
+Do not fabricate video URLs, timestamps, channels or language classifications.
+
+Display useful external learning resources alongside roadmap topics.
+
+---
+
+# 17. PDF AND POWERPOINT EXPORT ENGINE
+
+Build a background export engine.
+
+Supported formats:
+
+- PDF study notes.
+- PDF roadmaps.
+- PDF revision sheets.
+- PDF cheat sheets.
+- PPTX educational presentations.
+
+Create reusable document templates.
+
+PDF requirements:
+
+- Clean typography.
+- Proper headings.
+- Page numbers.
+- Tables.
+- Lists.
+- Code blocks where appropriate.
+- Source references.
+- Good page breaks.
+- Appropriate spacing.
+
+PPTX requirements:
+
+- Structured slide layouts.
+- Clear title and content hierarchy.
+- Readable text sizes.
+- Appropriate bullet points.
+- Useful visual organization.
+- Avoid overcrowding slides.
+
+Test Unicode and relevant multilingual font rendering.
+
+Keep generated exports private in storage.
+
+Users must only be able to download their own files through secure, short-lived links.
+
+Track export job status, errors and retries.
+
+---
+
+# 18. DASHBOARD AND ANALYTICS
+
+Integrate actual learning data into the dashboard.
+
+Include:
+
+- Active learning goals.
+- Current roadmaps.
+- Today's tasks.
+- Completed lessons.
+- Quiz performance.
+- Topic mastery.
+- Weak-topic recommendations.
+- Flashcards due.
+- Learning streaks.
+- Upcoming milestones.
+- Recent activity.
+
+Every dashboard metric must come from actual application data.
+
+Do not use fake analytics or hardcoded production values.
+
+Use charts only when the data provides meaningful insights.
+
+Make the dashboard useful on mobile-width screens.
+
+---
+
+# 19. DATABASE IMPLEMENTATION
+
+Inspect existing database migrations before creating or modifying schema.
+
+Ensure the data model supports:
+
+- profiles.
+- learning_goals.
+- source_documents.
+- document_chunks.
+- roadmaps.
+- roadmap_items.
+- learning_materials.
+- quizzes.
+- questions.
+- quiz_attempts.
+- quiz_answers.
+- flashcards.
+- flashcard_reviews.
+- learning_resources.
+- generation_jobs.
+- topic_mastery.
+- exports.
+
+Implement or repair:
+
+- Primary keys.
+- Foreign keys.
+- Unique constraints.
+- Check constraints.
+- Indexes.
+- Timestamps.
+- Deletion policies.
+- Ownership relationships.
+- RLS policies.
+
+Use relational columns for core application relationships and JSONB for suitable flexible content.
+
+If a relevant table already exists, improve it using a safe migration rather than creating a duplicate.
+
+Never reset a database containing real user data.
+
+Document how migrations are applied.
+
+---
+
+# 20. API AND BACKEND ARCHITECTURE
+
+Organize backend code into:
+
+- API routes.
+- Authentication.
+- Schemas.
+- Models.
+- Repositories.
+- Business services.
+- AI providers.
+- Workflow orchestration.
+- Retrieval.
+- Background workers.
+- External integrations.
+- Export services.
+
+Create consistent response models and error handling.
+
+Use OpenAPI to expose documented API contracts.
+
+Keep the Next.js application connected to the real backend.
+
+Do not duplicate business logic in frontend components.
+
+Implement pagination where needed, validation on all inputs and ownership checks on all protected resources.
+
+---
+
+# 21. ENGINEERING QUALITY AND TESTING
+
+Implement tests throughout development instead of waiting until the end.
+
+## Backend
+- Unit tests.
+- Integration tests.
+- Authentication tests.
+- Database tests.
+- AI schema validation.
+- Worker tests.
+- Retry and idempotency tests.
+- Document-processing tests.
+
+## Frontend
+- Component tests.
+- Form tests.
+- Navigation tests.
+- API integration tests.
+- Loading and error-state tests.
+- Responsive interface checks.
+
+## AI quality
+- Structured output validity.
+- Citation accuracy.
+- Duplicate question detection.
+- Answer-key consistency.
+- Roadmap feasibility.
+- Retrieval relevance.
+- Incomplete source handling.
+
+## End-to-end workflow
+
+Test the following complete flow:
+
+Register → Login → Create Goal → Generate Roadmap → Open Lesson → Study Content → Generate Quiz → Submit Answers → View Results → Update Mastery → Review Flashcards → Resume Learning.
+
+Also test document uploads and exports where implemented.
+
+Use mocked AI providers for deterministic tests and clearly distinguish mocks from production integrations.
+
+Never claim a test passed unless it has actually been executed successfully.
+
+---
+
+# 22. PERFORMANCE, SECURITY AND COST MANAGEMENT
+
+Implement:
+
+- Token verification.
+- RLS policies.
+- Ownership checks.
+- Rate limiting.
+- File-size restrictions.
+- Safe file extraction.
+- Private storage.
+- Secure downloads.
+- Bounded concurrency.
+- AI timeouts.
+- Usage metering.
+- Idempotency.
+- Structured logs.
+- Request correlation IDs.
+- Safe error messages.
+- Appropriate caching.
+
+Avoid exposing private user documents through vector retrieval or API responses.
+
+Prevent prompt injection from uploaded files.
+
+Avoid logging secrets, full sensitive documents or API credentials.
+
+Measure AI token usage, latency and failure rates.
+
+Do not use expensive LLM calls where deterministic logic is sufficient.
+
+---
+
+# 23. DOCUMENTATION AND PROJECT MANAGEMENT
+
+Maintain the following project documentation:
+
+```text
+docs/
+  PRD.md
+  TECH_STACK.md
+  ARCHITECTURE.md
+  DATABASE_AND_API.md
+  PROJECT_WORKFLOW.md
+  DESIGN_SYSTEM.md
+  SCREEN_SPECIFICATIONS.md
+  IMPLEMENTATION_BACKLOG.md
+  AI_WORKFLOW.md
+  SECURITY.md
+  TESTING.md
+```
+
+Update the README with:
+
+- Product overview.
+- Technology stack.
+- Requirements.
+- Installation.
+- Environment configuration.
+- Local startup commands.
+- Database migration commands.
+- Worker startup commands.
+- Testing instructions.
+- Project structure.
+
+Create `.env.example` with placeholders only.
+
+Keep CLAUDE.md updated with durable project instructions.
+
+Documentation must describe actual implementation, not imagined completed features.
+
+---
+
+# 24. IMPLEMENTATION EXECUTION ORDER
+
+Execute the work in the following dependency-aware sequence.
+
+### Phase 1 — Foundation
+Repository inspection, configuration, design tokens, Docker, CI and project setup.
+
+### Phase 2 — Authentication and data
+Supabase Auth, database migrations, RLS, FastAPI authorization and profiles.
+
+### Phase 3 — Onboarding and dashboard
+Learning goals, preferences, CRUD operations and dashboard integration.
+
+### Phase 4 — AI infrastructure
+Provider abstraction, structured outputs, background jobs and worker processing.
+
+### Phase 5 — Roadmap engine
+Planning Agent, roadmap schema, generation, persistence and roadmap UI.
+
+### Phase 6 — Learning workspace
+Lesson Content Agent, structured notes, simple explanations and learning progress.
+
+### Phase 7 — Assessments
+Assessment Agent, quiz generation, submission, grading and topic mastery.
+
+### Phase 8 — Document intelligence
+Uploads, extraction, OCR, embeddings, retrieval and citations.
+
+### Phase 9 — Flashcards and revision
+Flashcard generation, scheduling, review history and adaptive recommendations.
+
+### Phase 10 — Resource curation
+YouTube API integration, language preferences, ranking and caching.
+
+### Phase 11 — Export system
+PDF/PPT generation, storage, download permissions and export history.
+
+After each phase:
+1. Inspect the implementation.
+2. Run relevant tests.
+3. Fix errors.
+4. Review authorization.
+5. Update documentation.
+6. Preserve a working state.
+7. Proceed to the next phase.
+
+If the repository already implements a phase, verify and repair it rather than rebuilding it.
+
+---
+
+# 25. DEFINITION OF DONE
+
+The application must not be considered complete simply because its UI loads.
+
+A feature is complete only when:
+
+- The user workflow works.
+- Frontend and backend are integrated.
+- Data persists correctly.
+- Permissions are enforced.
+- AI outputs are validated.
+- Errors are handled.
+- Loading and empty states work.
+- Relevant tests pass.
+- Existing functionality does not regress.
+- Documentation reflects actual behavior.
+
+The core StudyPilot experience must support a complete personalized learning journey.
+
+---
+
+# 26. FINAL EXECUTION INSTRUCTIONS
+
+Start by inspecting the repository, uploaded reference PDF, current Git status and existing implementation.
+
+Then:
+
+1. Create an implementation gap report.
+2. Identify existing working features.
+3. Identify incomplete features.
+4. Identify missing features.
+5. Establish or update the technical documentation.
+6. Execute the implementation phases in order.
+7. Repair the existing functionality.
+8. Build missing in-scope functionality.
+9. Run tests throughout.
+10. Keep the application usable at every reasonable milestone.
+
+Do not abandon implementation after producing a plan.
+
+Do not repeatedly ask me to approve normal technical decisions.
+
+Do not perform irreversible operations without approval.
+
+Do not invent credentials, external integrations, successful tests or deployment results.
+
+If a required credential is missing, continue all independent work and clearly record the blocker.
+
+If the environment or context window prevents completion in one session, update the implementation backlog and record precisely what remains. Never claim the entire application is complete when it is not.
+
+## FINAL REPORT
+
+At the end of your work, provide:
+
+1. Features implemented.
+2. Existing features repaired.
+3. Frontend functionality completed.
+4. Backend functionality completed.
+5. AI workflows completed.
+6. Database migrations created or modified.
+7. Integrations configured and verified.
+8. Tests executed and their actual results.
+9. Security issues addressed.
+10. Incomplete or blocked functionality.
+11. Required external credentials and manual setup.
+12. Recommended next development action.
+
+Your ultimate objective is to deliver a genuinely functional, maintainable AI learning platform, not merely a visually impressive prototype.
+
+BEGIN BY INSPECTING THE EXISTING STUDYPILOT REPOSITORY AND EXECUTE THE WORK SYSTEMATICALLY.

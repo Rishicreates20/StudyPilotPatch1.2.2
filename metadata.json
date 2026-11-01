@@ -1,0 +1,8 @@
+{
+  "name": "StudyPilot",
+  "description": "AI-powered personal learning coach that turns goals into structured roadmaps, interactive lessons, quizzes, and spaced repetition flashcards.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
