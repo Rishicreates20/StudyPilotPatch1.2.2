@@ -1,0 +1,105 @@
+# Local development stack: the API and the web app, both with hot reload.
+#
+#   docker compose up --build
+#
+# The database and auth are NOT part of this file: they come from a Supabase project (see
+# docs/SUPABASE_SETUP.md). The simplest setup is a hosted Supabase project, whose https URL is
+# the same from the browser and from inside the containers.
+#
+# Configuration comes from the shell or a root-level .env file (git-ignored). The API refuses to
+# start without DATABASE_URL and SUPABASE_URL and says so in its log; the web app starts without
+# Supabase settings but its sign-in pages then explain that auth is not configured.
+#
+# Running against the local Supabase CLI stack (`npx supabase start`)? Run the apps natively
+# instead (`npm run dev:web`, `npm run dev:api`): the stack listens on the host's localhost,
+# which containers cannot reach without extra networking.
+
+name: studypilot
+
+services:
+  api:
+    build:
+      context: services/api
+      target: dev
+    environment:
+      APP_ENV: local
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      # The browser calls the API directly from the host, so allow the web origin.
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
+      # Secrets: read from your shell or the git-ignored .env, never written in this file.
+      DATABASE_URL: ${DATABASE_URL:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_JWT_MODE: ${SUPABASE_JWT_MODE:-jwks}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      # AI roadmap generation. The API only checks these are set; the worker uses them.
+      LLM_PROVIDER: ${LLM_PROVIDER:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      # Only the source is mounted; dependencies stay in the image (/opt/venv).
+      - ./services/api/app:/srv/api/app
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2).status == 200 else 1)"
+      interval: 10s
+      timeout: 3s
+      start_period: 15s
+      retries: 5
+
+  # Runs queued background jobs (roadmap generation). Same image and settings as the API.
+  worker:
+    build:
+      context: services/api
+      target: dev
+    command: ["python", "-m", "app.worker"]
+    environment:
+      APP_ENV: local
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DATABASE_URL: ${DATABASE_URL:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_JWT_MODE: ${SUPABASE_JWT_MODE:-jwks}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      LLM_PROVIDER: ${LLM_PROVIDER:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.6-flash}
+    volumes:
+      - ./services/api/app:/srv/api/app
+    depends_on:
+      api:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: dev
+    environment:
+      # Browser-facing API address (compiled into client code).
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-StudyPilot}
+      # Public by design (they only identify your project). The service-role key never goes here.
+      NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:-}
+      # Server-side address: inside the Compose network the API is reachable by service name.
+      API_INTERNAL_BASE_URL: http://api:8000
+      # Bind mounts on Windows/macOS do not deliver file-change events reliably.
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/repo/apps/web
+      - ./packages/contracts:/repo/packages/contracts
+      # Keep the Linux node_modules / build cache from the image; never use the host's.
+      - web_node_modules:/repo/apps/web/node_modules
+      - web_next_cache:/repo/apps/web/.next
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  web_node_modules:
+  web_next_cache:

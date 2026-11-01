@@ -1,0 +1,64 @@
+[project]
+name = "studypilot-api"
+version = "0.1.0"
+description = "StudyPilot API and worker (FastAPI)"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "fastapi==0.143.0",
+    "uvicorn==0.54.0",
+    "pydantic-settings==2.15.0",
+    "structlog==26.1.0",
+    # Database: psycopg 3 with a connection pool (explicit SQL, no ORM; see ADR-021).
+    "psycopg[binary]==3.3.6",
+    "psycopg-pool==3.3.3",
+    # Access-token verification (Supabase JWTs) and the HTTP client that fetches the signing keys.
+    "pyjwt[crypto]==2.15.1",
+    "httpx2==2.13.1",
+    # The IANA timezone database, used to validate timezone names. Slim Linux images ship none, and
+    # Windows has none either, so it is a real dependency rather than an assumption about the OS.
+    "tzdata==2026.5",
+    # PDF text extraction: pure Python, BSD licence (PyMuPDF is AGPL and is avoided, ADR-014).
+    "pypdf==6.20.0",
+    "fpdf2==2.8.9",
+    "uharfbuzz==0.56.4",
+    "python-pptx==1.0.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+    "pyright==1.1.414",
+    "ruff==0.16.10",
+    "pypdfium2==5.14.0",
+]
+
+[tool.uv]
+# This is an application, not a library: install dependencies only, no build backend.
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = [".", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "C4", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+# SIM117: "with session_as(...) as c:" then "with pytest.raises(...)" reads clearest nested.
+"tests/**" = ["S101", "SIM117"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "tests"]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.pyright]
+# tests/pg_server is a separate Python 3.12 helper environment (see its pyproject.toml).
+include = ["app", "tests"]
+exclude = ["tests/pg_server", "**/.venv"]
+pythonVersion = "3.14"
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
+extraPaths = ["tests"]

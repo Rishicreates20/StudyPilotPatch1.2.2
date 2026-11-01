@@ -1,0 +1,45 @@
+import Link from "next/link";
+import { Suspense } from "react";
+
+import { AuthMobileMenu } from "@/components/auth/auth-mobile-menu";
+import { AuthNav } from "@/components/auth/auth-nav";
+import { Logo } from "@/components/brand/logo";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { NavLinks } from "@/components/layout/nav-links";
+import { NavLinksFallback } from "@/components/layout/nav-links-fallback";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { primaryNav, siteName } from "@/lib/site";
+
+export function SiteHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-4 sm:px-6 lg:px-8">
+        <MobileNav items={primaryNav} siteName={siteName}>
+          <Suspense fallback={null}>
+            <AuthMobileMenu />
+          </Suspense>
+        </MobileNav>
+        <Link
+          href="/"
+          aria-label={`${siteName} home`}
+          className="rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <Logo name={siteName} />
+        </Link>
+        <nav aria-label="Primary" className="ml-6 hidden md:block">
+          {/* Highlights the current page, which on a dynamic route is only known per request. */}
+          <Suspense fallback={<NavLinksFallback items={primaryNav} />}>
+            <NavLinks items={primaryNav} />
+          </Suspense>
+        </nav>
+        <div className="ml-auto flex items-center gap-1">
+          {/* Reads the session, so it renders per request; the rest of the header stays static. */}
+          <Suspense fallback={<div className="h-9 w-24" aria-hidden="true" />}>
+            <AuthNav />
+          </Suspense>
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+  );
+}
